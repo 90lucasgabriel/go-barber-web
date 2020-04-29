@@ -1,8 +1,8 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 
 const Signup: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  
   const handleSubmit = useCallback(async (data: object) => {
     try {
       formRef.current?.setErrors({});
