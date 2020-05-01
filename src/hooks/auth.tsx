@@ -5,10 +5,12 @@ interface AuthState {
   token: string;
   user: object;
 }
+
 interface SigninCredentials {
   email: string;
   password: string;
 }
+
 interface AuthContextData {
   user: object;
   signin(signinCredentials: SigninCredentials): Promise<void>;
@@ -61,7 +63,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw Error('useAuth must be used within an AuthProvider.');
+    throw new Error('useAuth must be used within an AuthProvider.');
   }
 
   return context;
