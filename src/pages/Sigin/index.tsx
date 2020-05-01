@@ -19,7 +19,9 @@ interface SigninFormData {
 
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signin } = useContext(AuthContext);
+  const { user, signin } = useContext(AuthContext);
+  console.log("Signin:React.FC -> user", user)
+
 
   const handleSubmit = useCallback(
     async (data: SigninFormData) => {
@@ -66,7 +68,7 @@ const Signin: React.FC = () => {
           <a href="forgot">Esqueci minha senha</a>
         </Form>
 
-        <a href="">
+        <a href="asdasd">
           <FiLogIn />
           Criar conta
         </a>
