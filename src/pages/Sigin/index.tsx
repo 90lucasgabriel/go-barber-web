@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { FiLogIn, FiLock, FiMail } from 'react-icons/fi';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 import logoImg from '../../assets/logo.svg';
 import { Container, Content, Background } from './styles';
@@ -19,9 +19,8 @@ interface SigninFormData {
 
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { user, signin } = useContext(AuthContext);
-  console.log("Signin:React.FC -> user", user)
-
+  const { user, signin } = useAuth();
+  console.log('Signin:React.FC -> user', user);
 
   const handleSubmit = useCallback(
     async (data: SigninFormData) => {
