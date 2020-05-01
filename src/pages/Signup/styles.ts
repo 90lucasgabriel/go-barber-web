@@ -38,7 +38,7 @@ export const AnimatedContainer = styled(animated.div)`
   align-items: center;
   justify-content: center;
 
-  animation: ${appearFromRight} 10s;
+  animation: ${appearFromRight} 1s;
 
   form {
     margin: 80px 0;
