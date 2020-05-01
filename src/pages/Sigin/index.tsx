@@ -39,9 +39,13 @@ const Signin: React.FC = () => {
 
         signin({ email: data.email, password: data.password });
       } catch (error) {
-        const errors = getValidationErrors(error);
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
+        }
+
+        
       }
     },
     [signin],
