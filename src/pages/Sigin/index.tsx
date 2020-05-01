@@ -5,38 +5,47 @@ import * as Yup from 'yup';
 import { FiLogIn, FiLock, FiMail } from 'react-icons/fi';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import AuthContext from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 import logoImg from '../../assets/logo.svg';
 import { Container, Content, Background } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+interface SigninFormData {
+  email: string;
+  password: string;
+}
+
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { name } = useContext(AuthContext);
-  console.log('Signin:React.FC -> name', name);
+  const { signin } = useContext(AuthContext);
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SigninFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('E-mail obrigatório.')
-          .email('E-mail inválido.'),
-        password: Yup.string().required('Senha obrigatória'),
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório.')
+            .email('E-mail inválido.'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (error) {
-      const errors = getValidationErrors(error);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        signin({ email: data.email, password: data.password });
+      } catch (error) {
+        const errors = getValidationErrors(error);
+
+        formRef.current?.setErrors(errors);
+      }
+    },
+    [signin],
+  );
 
   return (
     <Container>
