@@ -1,32 +1,33 @@
 import React, { useCallback, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { FiLock, FiMail, FiUser, FiCamera, FiArrowLeft } from 'react-icons/fi';
 
 import api from '../../services/api';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.svg';
-import { Container, Content, AnimatedContainer, Background } from './styles';
+import { Container, Content, AvatarInput } from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useToast } from '../../hooks/toast';
+import { useAuth } from '../../hooks/auth';
 
-interface SignupFormData {
+interface ProfileFormData {
   name: string;
   email: string;
   password: string;
 }
 
-const Signup: React.FC = () => {
+const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const { addToast } = useToast();
+  const { user } = useAuth();
 
   const handleSubmit = useCallback(
-    async (data: SignupFormData) => {
+    async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
 
@@ -71,33 +72,58 @@ const Signup: React.FC = () => {
 
   return (
     <Container>
-      <Background />
-      <Content>
-        <AnimatedContainer>
-          <img src={logoImg} alt="GoBarber" />
-
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu cadastro</h1>
-
-            <Input name="name" icon={FiUser} placeholder="Nome" />
-            <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input
-              name="password"
-              icon={FiLock}
-              type="password"
-              placeholder="Senha"
-            />
-            <Button type="submit">Cadastrar</Button>
-          </Form>
-
-          <Link to="/">
+      <header>
+        <div>
+          <Link to="/dashboard">
             <FiArrowLeft />
-            Voltar para login
           </Link>
-        </AnimatedContainer>
+        </div>
+      </header>
+
+      <Content>
+        <Form
+          initialData={{
+            name: user.name,
+            email: user.email, 
+          }}
+          ref={formRef}
+          onSubmit={handleSubmit}
+        >
+          <AvatarInput>
+            <img src={user.avatar_url} alt={user.name} />
+            <button type="button">
+              <FiCamera />
+            </button>
+          </AvatarInput>
+
+          <h1>Meu Perfil</h1>
+
+          <Input name="name" icon={FiUser} placeholder="Nome" />
+          <Input name="email" icon={FiMail} placeholder="E-mail" />
+          <Input
+            containerStyle={{ marginTop: 24 }}
+            name="old_password"
+            icon={FiLock}
+            type="password"
+            placeholder="Senha atual"
+          />
+          <Input
+            name="password"
+            icon={FiLock}
+            type="password"
+            placeholder="Nova senha"
+          />
+          <Input
+            name="password_confirmation"
+            icon={FiLock}
+            type="password"
+            placeholder="Confirmar nova senha"
+          />
+          <Button type="submit">Confirmar alterações</Button>
+        </Form>
       </Content>
     </Container>
   );
 };
 
-export default Signup;
+export default Profile;

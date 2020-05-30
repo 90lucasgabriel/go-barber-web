@@ -40,6 +40,7 @@ export const Profile = styled.div`
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    background: #111;
   }
 
   div {
@@ -52,8 +53,13 @@ export const Profile = styled.div`
       color: #f4ede8;
     }
 
-    strong {
+    a {
+      text-decoration: none;
       color: #ff9000;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 `;
@@ -126,6 +132,7 @@ export const NextAppointment = styled.div`
       width: 80px;
       height: 80px;
       border-radius: 50%;
+      background: #111;
     }
 
     strong {
@@ -199,6 +206,7 @@ export const Appointment = styled.div`
       width: 56px;
       height: 56px;
       border-radius: 50%;
+      background: #111;
     }
 
     strong {
