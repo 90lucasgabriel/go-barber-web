@@ -17,7 +17,7 @@ export const Container = styled.div`
       svg {
         color: #999591;
         width: 24px;
-        height: 24px; 
+        height: 24px;
       }
     }
   }
@@ -72,12 +72,13 @@ export const AvatarInput = styled.div`
     background: #111;
   }
 
-  button {
+  label {
     position: absolute;
     width: 48px;
     height: 48px;
     background: #ff9000;
     border-radius: 50%;
+    cursor: pointer;
     right: 0;
     bottom: 0;
     transition: background-color 0.2s;
@@ -85,6 +86,10 @@ export const AvatarInput = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    input {
+      display: none;
+    }
 
     svg {
       width: 20px;
