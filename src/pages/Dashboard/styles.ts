@@ -159,6 +159,10 @@ export const Section = styled.section`
     padding-bottom: 16px;
     margin-bottom: 16px;
   }
+
+  > p {
+    color: #999591;
+  }
 `;
 
 export const Appointment = styled.div`
@@ -241,7 +245,7 @@ export const Calendar = styled.aside`
 
   .DayPicker:not(.DayPicker--interactionDisabled)
     .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-    background: ${shade (0.2, '#3e3b47')};
+    background: ${shade(0.2, '#3e3b47')};
   }
 
   .DayPicker-Day--today {
